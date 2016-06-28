@@ -5,6 +5,7 @@
  */
 
 var UI = require('ui');
+var ajax = require('ajax');
 var Vector2 = require('vector2');
 var Settings = require('settings');
 
@@ -24,8 +25,28 @@ var gameOver = function(winner){
   var card = new UI.Card();
   var data = Settings.data();
   card.title('Game Over');
-  card.subtitle(winner + ' wins!');
+  card.subtitle(Settings.data(winner) + ' wins!');
   card.body(getBody());
+
+  card.on('click', 'down', function(e){
+    var loser = '';
+    var winnerScore = loserScore = 0;
+    if (winner === 'player1'){
+      loser = 'player2'
+      winnerScore = 'player1Score';
+      loserScore = 'player2Score';
+    } else {
+      loser = 'player1';
+      winnerScore = 'player2Score';
+      loserScore = 'player1Score';
+    }
+    ajax({ url: 'http://fahrenheit-ping-mattermost.dokku.awesomebob.xyz/score/' +
+      Settings.data(winner) + '/' +
+      Settings.data(winnerScore) + '/' +
+      Settings.data(loser) + '/' +
+      Settings.data(loserScore), method: 'post'
+    });
+  });
   card.show();
 }
 
@@ -36,11 +57,11 @@ var checkScore = function(){
   var winning = '';
   if (player1Score === player2Score) return;
   if (player1Score > player2Score){
-    winning = Settings.data('player1');
+    winning = 'player1';
     highScore = player1Score;
     lowScore = player2Score;
   } else {
-    winning = Settings.data('player2');
+    winning = 'player2';
     highScore = player2Score;
     lowScore = player1Score;
   }
