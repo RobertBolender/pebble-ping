@@ -109,7 +109,7 @@ main.on('longClick', 'up', function(e) {
     console.log('The selection is titled "' + e.item.title + '"');
     Settings.data('player1', e.item.title);
     main.body(getBody());
-    main.show();
+    menu.hide();
   });
   menu.show();
 });
@@ -135,7 +135,7 @@ main.on('longClick', 'down', function(e) {
     console.log('The selection is titled "' + e.item.title + '"');
     Settings.data('player2', e.item.title);
     main.body(getBody());
-    main.show();
+    menu.hide();
   });
   menu.show();
 });
