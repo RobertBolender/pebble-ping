@@ -27,10 +27,10 @@ var gameOver = function(winner){
   var data = Settings.data();
   card.title('Game Over');
   card.subtitle(Settings.data(winner) + ' wins!');
-  card.body(getBody());
+  card.body(getBody() + "\nLong Click to Post");
   Vibe.vibrate('short');
 
-  card.on('click', 'down', function(e){
+  card.on('longClick', 'down', function(e){
     var loser = '';
     var winnerScore = loserScore = 0;
     if (winner === 'player1'){
