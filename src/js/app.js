@@ -6,6 +6,7 @@
 
 var UI = require('ui');
 var ajax = require('ajax');
+var Vibe = require('ui/vibe');
 var Vector2 = require('vector2');
 var Settings = require('settings');
 
@@ -27,6 +28,7 @@ var gameOver = function(winner){
   card.title('Game Over');
   card.subtitle(Settings.data(winner) + ' wins!');
   card.body(getBody());
+  Vibe.vibrate('short');
 
   card.on('click', 'down', function(e){
     var loser = '';
@@ -46,6 +48,8 @@ var gameOver = function(winner){
       Settings.data(loser) + '/' +
       Settings.data(loserScore), method: 'post'
     });
+    Vibe.vibrate('double');
+    card.hide();
   });
   card.show();
 }
