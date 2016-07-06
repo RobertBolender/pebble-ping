@@ -9,6 +9,7 @@ var ajax = require('ajax');
 var Vibe = require('ui/vibe');
 var Vector2 = require('vector2');
 var Settings = require('settings');
+var config = require('./config.json');
 
 // Initial settings
 
@@ -42,7 +43,7 @@ var gameOver = function(winner){
       winnerScore = 'player2Score';
       loserScore = 'player1Score';
     }
-    ajax({ url: 'http://fahrenheit-ping-mattermost.dokku.awesomebob.xyz/score/' +
+    ajax({ url: config.WEBHOOK_URL +
       Settings.data(winner) + '/' +
       Settings.data(winnerScore) + '/' +
       Settings.data(loser) + '/' +
